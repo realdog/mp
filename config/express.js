@@ -3,7 +3,7 @@ var path = require('path');
 var log4js = require('log4js');
 log4js.loadAppender('file');
 log4js.addAppender(log4js.appenders.file('logs/mp.log'), 'mp');
-var logger = log4js.getLogger('cheese');
+var logger = log4js.getLogger('mp');
 logger.setLevel('INFO');
 module.exports = function (app) {
     app.use(express.compress({
