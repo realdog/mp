@@ -1,5 +1,9 @@
 var express = require('express');
 var path = require('path');
+var log4js = require('log4js');
+log4js.addAppender(log4js.fileAppender('cheese.log'), 'cheese');
+var logger = log4js.getLogger('cheese');
+logger.setLevel('INFO');
 module.exports = function (app) {
     app.use(express.compress({
       filter: function (req, res) {
@@ -24,8 +28,10 @@ module.exports = function (app) {
         req.setEncoding('utf8');
         req.on('data', function(chunk) { data += chunk });
         req.on('end', function(chunk) { req.rawBody = data; next();})
-      });    
+      });
+      app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO }));      
       app.use(app.router);
+      
       app.use(require('stylus').middleware(__dirname + '/public'));
       app.use(express.static(path.join(__dirname, 'public')));
       app.use(function(err, req, res, next){
