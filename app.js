@@ -1,6 +1,4 @@
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , parser = require('xml2json')
