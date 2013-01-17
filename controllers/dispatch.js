@@ -32,6 +32,7 @@ exports.dispatch = function(req, res, data) {
                 var text = genTextXml(person.userWeiId, person.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
             } else if (person.status == 'hadRegBaseInfo') {
                 var text = genTextXml(person.userWeiId, person.businessWeiId, '<a href="http://www.lessky.com">亲，马上就给你注册啦!</a>', 0);   
+                person._register();
                 return;
             } else if (person.status == "fullRegister") {
                 var text = genTextXml(person.userWeiId, person.businessWeiId, "注册成功啦哈哈", 1);
