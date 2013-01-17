@@ -22,27 +22,10 @@ exports.dispatch = function(req, res, data) {
     var targetUser = data['xml']['FromUserName'];
     var fromUser = data['xml']['ToUserName'];
     console.log(JSON.stringify(data));
-    Player
-    .find({playerWeiId: targetUser, businessWeiId: fromUser})
-    .exec(function(error, player) {
-        console.log(error);
-        if (!!error) {
-            var text = genTextXml(targetUser, fromUser, JSON.stringify(), 1);
-            res.send(text);
-        } else {
-            if (player.length == 0) {
-                var begin = function(msgObj) {
-                    res.send(msgObj);
-                };
-                Register(targetUser, fromUser, begin, data);
-            } else if (player.length > 1) {
-                
-            } else {
-                begin(player.name);
-            }
-        }
-        console.log("error:" + error);
-        console.log("player:" + player);
-    });
-
+    var begin = function(msgObj) {
+        res.send(msgObj);
+    };    
+    var person = new Register(targetUser, fromUser, begin, data);
+    console.log("check");
+    person.check();
 }

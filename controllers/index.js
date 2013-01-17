@@ -69,6 +69,7 @@ exports.postIndex = function(req, res) {
                     data.userName = reply.userName;
                     dispatch(req, res, data);
                 } else { 
+                    console.log(2);
                     dispatch(req, res, data);
                 }
             });
