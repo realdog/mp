@@ -1,6 +1,5 @@
 var events = new require("events");
 var redis = require("redis");
-var client = redis.createClient();
 var fs = require('fs');
 var mongoose = require('mongoose');
 var _ = require('underscore');

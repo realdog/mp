@@ -1,4 +1,6 @@
 var fs = require('fs');
+var redis = require("redis");
+var client = redis.createClient();
 var mongoose = require('mongoose');
 var Business = mongoose.model('Business');
 var Player = mongoose.model('Player');
