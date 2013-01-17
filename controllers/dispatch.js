@@ -22,8 +22,8 @@ exports.dispatch = function(req, res, data) {
     var targetUser = data['xml']['FromUserName'];
     var fromUser = data['xml']['ToUserName'];
     console.log(JSON.stringify(data));
-    var begin = function(msgObj) {
-        res.send(msgObj);
+    var begin = function() {
+        console.log(targetUser);
     };    
     var person = new Register(targetUser, fromUser, begin, data);
     person.check();
