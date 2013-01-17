@@ -35,7 +35,7 @@ _Register.prototype._check = function() {
         if (!!error) {
             this.error = true;
             this.status = error;
-            callback();
+            this.callback();
         } else if (players.length == 0){
             var newPlayer = new Player({});
             newPlayer.playerWeiId = this.userWeiId;
@@ -46,7 +46,7 @@ _Register.prototype._check = function() {
                 this.error = false;
                 this.status = 'justRegBaseRegInfo';
                 //var returnStatus = {error: false, status: "justRegBaseRegInfo"};
-                callback();
+                this.callback();
             });
         } else if (players.length == 1) {
             var status = players[0].status;
@@ -54,7 +54,7 @@ _Register.prototype._check = function() {
                 case 'fullRegister':
                     this.error = false;
                     this.status = 'fullRegister';
-                    callback();
+                    this.callback();
                     break;
                 case 'justRegBaseRegInfo':
                     var lastTime = new Date(players[0].createDate);
@@ -72,19 +72,19 @@ _Register.prototype._check = function() {
                                 //var returnStatus = {error: false,  status: 'timeout'}
                                 //var text = genTextXml(userWeiId, businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
                             }
-                            callback();
+                            this.callback();
                         });
                         
                     } else {
                         this.status = 'justRegBaseRegInfo'
                         this.error = false;
-                        callback();
+                        this.callback();
                     }
                     break;
                 default:
                     this.error = false;
                     this.status = 'unknow';
-                    callback();                
+                    this.callback();                
                     
                     
             }
