@@ -16,6 +16,7 @@ var _Register = require('./_register')._Register;
 var Register = function(userWeiId, businessWeiId, callback, data) {
     this.userWeiId = userWeiId;
     this.businessWei = businessWeiId;
+    this.status = '';
     this.content = data['xml']['Content'].replace(/ /g, '');
     this.callback = callback;
     this.error = false;
@@ -45,20 +46,22 @@ Register.prototype.check = function() {
         if (!!err) {
             that.error = true;
             that.status = 'missReisRecorder';
+            console.log(that.status);
             that.errorMessage = genTextXml(that.userWeiId, that.businessWei, "服务器解析错误:" + err.toString(), 1);
             that._callback();
         } else {
-            that._check();
-        }
-        if (!!reply) {
-            that.error = false;
-            that.status = 'missRedisRecorder';
-            that.message = JSON.parse(reply);
-            that._callback();
-        } else { 
-            that._check();
-            console.log("no reg")
-            //dispatch(req, res, data);
+            if (!!reply) {
+                that.error = false;
+                that.status = 'missRedisRecorder';
+                that.message = JSON.parse(reply);
+                console.log(that.status);
+                that._callback();
+            } else { 
+                console.log("no reg")
+                console.log(that.status);
+                that._check();
+                //dispatch(req, res, data);
+            }
         }
     });
 
