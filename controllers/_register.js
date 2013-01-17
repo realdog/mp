@@ -42,7 +42,7 @@ _Register.prototype._check = function() {
             var newPlayer = new Player({});
             newPlayer.playerWeiId = that.userWeiId;
             newPlayer.busiunesWeiId = that.businessWeiId;
-            newPlayer.status = 'recordBaseRegInfo';
+            newPlayer.status = 'justRegBaseRegInfo';
             newPlayer.save(function(err){
                 //var text = genTextXml(userWeiId, businessWeiId, "亲爱的，您是第一次来使用这个功能吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
                 that.error = false;
@@ -220,7 +220,7 @@ _Register.prototype._register = function() {
         } else if (players.length == 1) {
             var status = players[0].status;
             switch (status) {
-                case 'recordBaseRegInfo':
+                case 'justRegBaseRegInfo':
                     var lastTime = new Date(players[0].createDate);
                     if (Date.now() - lastTime >= 10000) {
                         players[0].createDate = new Date();

@@ -26,11 +26,9 @@ exports.getIndex = function(req, res) {
     var hash = crypto.createHash('sha1');
     hash.update(tmpArray.join(''));
     var tmpStr = hash.digest('hex');
-    console.log(tmpStr.toString())
     if (signature != tmpStr.toString()) {
         res.send('false')
     } else {
-        console.log(echostr);
         res.send(echostr);
     }
 
@@ -55,7 +53,6 @@ exports.postIndex = function(req, res) {
     var hash = crypto.createHash('sha1');
     hash.update(tmpArray.join(''));
     var tmpStr = hash.digest('hex');
-    console.log(data)
     if (signature != tmpStr.toString()) {
         res.send('false');
     } else {
@@ -63,19 +60,18 @@ exports.postIndex = function(req, res) {
             client.get(data['xml']['ToUserName'], function(err, reply){
                 if (!!err) {
                     var xml = genTextXml(data['xml']['FromUserName'], data['xml']['ToUserName'], "服务器解析错误:" + err.toString(), 1);
-                    console.log(xml);
                     res.send(xml);
                 } else if (!!reply) {
                     data.userName = reply.userName;
                     dispatch(req, res, data);
                 } else { 
-                    console.log(2);
                     dispatch(req, res, data);
                 }
             });
         
             
             return;
+            console.log(123);
             var msgType = data['xml']['MsgType'];
             var targetUser = data['xml']['FromUserName'];
             var fromUser = data['xml']['ToUserName'];
