@@ -43,7 +43,6 @@ Register.prototype._callback = function() {
         } else if (this.status == 'timeout') {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
         } else if (this.status == 'hadRegBaseInfo') {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，马上就给你注册啦!</a>', 0);   
             this.register();
             return;
         } else if (this.status == "fullRegister" && this.runningFunction == this.register) {
