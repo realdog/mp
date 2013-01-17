@@ -60,7 +60,7 @@ _Register.prototype._check = function() {
                     break;
                 case 'justRegBaseRegInfo':
                     var lastTime = new Date(players[0].createDate);
-                    if (Date.now() - lastTime >= 360000) {
+                    if (Date.now() - lastTime >= 10000) {
                         players[0].createDate = new Date();
                         players[0].save(function(err){
                             if (!!err) {
@@ -149,7 +149,7 @@ _Register.prototype._register = function() {
                     break;            
                 case 'justRegBaseRegInfo':
                     var lastTime = new Date(players[0].createDate);
-                    if (Date.now() - lastTime >= 360000) {
+                    if (Date.now() - lastTime >= 10000) {
                         players[0].status = 'fullRegister';
                         players[0].playName = this.content;            
                         players[0].createDate = new Date();
