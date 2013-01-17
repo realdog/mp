@@ -32,9 +32,9 @@ exports.dispatch = function(req, res, data) {
         } else {
             if (player.length == 0) {
                 var begin = function(msgObj) {
-                    res.send(msgObj.msg);
+                    res.send(msgObj);
                 };
-                Register(req, res, targetUser, fromUser, false, begin, data);
+                Register(targetUser, fromUser, begin, data);
             } else if (player.length > 1) {
                 
             } else {
