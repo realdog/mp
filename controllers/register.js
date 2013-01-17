@@ -12,8 +12,6 @@ var _Register = require('./_register')._Register;
 util.inherits(Register, _Register);
 exports.Register = Register;
 
-var Register = function()
-
 var Register = function(userWeiId, businessWeiId, callback, data) {
     this.userWeiId = userWeiId;
     this.businessWei = businessWeiId;
