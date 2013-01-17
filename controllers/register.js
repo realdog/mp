@@ -36,7 +36,7 @@ util.inherits(Register, _Register);
 
 Register.prototype._callback = function() {
     console.log("register");
-    console.log(this.callback);
+    console.log(this.callback.toString());
     this.callback();
 }
 
