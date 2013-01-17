@@ -53,8 +53,10 @@ Register.prototype.check = function() {
                 that.error = false;
                 that.status = 'missRedisRecorder';
                 that.message = JSON.parse(reply);
+                return;
                 that._callback();
             } else { 
+                return;
                 that._check();
                 //dispatch(req, res, data);
             }
