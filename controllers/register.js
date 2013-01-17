@@ -29,6 +29,8 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
     }
 };
 
+util.inherits(Register, _Register);
+
 Register.prototype._callback = function() {
     this.callback();
 }
@@ -55,5 +57,5 @@ Register.prototype.check = function() {
     this._check();
 };
 
-util.inherits(Register, _Register);
+
 exports.Register = Register;
