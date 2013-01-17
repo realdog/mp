@@ -33,7 +33,7 @@ exports.dispatch = function(req, res, data) {
             } else if (person.status == 'hadRegBaseInfo') {
                 var text = genTextXml(person.userWeiId, person.businessWeiId, '<a href="http://www.lessky.com">亲，马上就给你注册啦!</a>', 0);                
             }      
-        } else (person.error == true) {
+        } else if(person.error == true) {
             var text = genTextXml(person.userWeiId, person.businessWeiId, "亲，似乎现在系统正在维护！稍后试验下吧", 1);
         }
         res.end(text);
