@@ -15,7 +15,7 @@ var _Register = require('./_register')._Register;
 
 var Register = function(userWeiId, businessWeiId, callback, data) {
     this.userWeiId = userWeiId;
-    this.businessWei = businessWeiId;
+    this.businessWeiId = businessWeiId;
     this.status = '';
     this.content = data['xml']['Content'].toString().replace(/ /g, '');
     this.callback = callback;

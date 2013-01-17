@@ -12,7 +12,7 @@ var genTextXml = userUtil.genTextXml;
 
 var _Register = function(userWeiId, businessWeiId, callback, data) {
     this.userWeiId = userWeiId;
-    this.businessWei = businessWeiId;
+    this.businessWeiId = businessWeiId;
     this.content = data['xml']['Content'].replace(/ /g, '');
     this.callback = callback;
     this.error = false;
