@@ -40,6 +40,8 @@ Register.prototype._callback = function() {
 
 Register.prototype.check = function() {
     console.log("Register.prototype.check:" + this.businessHashKey);
+    console.log(this.check);
+    console.log(this._check);
     client.get(this.businessHashKey, function(err, reply){
         if (!!err) {
             this.error = true;

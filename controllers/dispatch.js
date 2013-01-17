@@ -27,5 +27,7 @@ exports.dispatch = function(req, res, data) {
     };    
     var person = new Register(targetUser, fromUser, begin, data);
     console.log("check");
+    console.log(person.check);
+    console.log(person._check);
     person.check();
 }
