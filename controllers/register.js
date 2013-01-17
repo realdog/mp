@@ -23,7 +23,6 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
     hash = crypto.createHash('md5');
     hash.update(this.businessWei + this.userWeiId);
     this.businessHashKey = hash.digest('hex');
-    
     if ((this.content.length >>> 0) <= 0 ) {
         this.error = true;
         this.status = 'nullContent';
