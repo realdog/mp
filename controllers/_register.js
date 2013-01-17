@@ -48,6 +48,7 @@ _Register.prototype._check = function() {
                 that.error = false;
                 that.status = 'justRegBaseRegInfo';
                 //var returnStatus = {error: false, status: "justRegBaseRegInfo"};
+                return;
                 that._callback();
             });
         } else if (players.length == 1) {
