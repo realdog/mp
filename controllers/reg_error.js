@@ -5,8 +5,8 @@ var Player = mongoose.model('Player');
 var Business = mongoose.model('Business');
 var Player = mongoose.model('Player');
 var Status = mongoose.model('Status');
-var util = require('../util/util');
-var genTextXml = util.genTextXml;
+var userUtil = require('../util/util');
+var genTextXml = userUtil.genTextXml;
 exports.reg = function(req, res, userWeiId, businessWeiId, gameId, callback, data) {
     console.log('reg');
     Status

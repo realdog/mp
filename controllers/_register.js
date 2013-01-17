@@ -9,7 +9,7 @@ var Business = mongoose.model('Business');
 var Status = mongoose.model('Status');
 var userUtil = require('../util/util');
 var util = require('util');
-var genTextXml = util.genTextXml;
+var genTextXml = userUtil.genTextXml;
 
 var _Register = function(userWeiId, businessWeiId, callback, data) {
     this.userWeiId = userWeiId;

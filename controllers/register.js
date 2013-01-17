@@ -7,7 +7,7 @@ var _ = require('underscore');
 var crypto = require('crypto');
 var userUtil = require('../util/util');
 var util = require('util');
-var genTextXml = util.genTextXml;
+var genTextXml = userUtil.genTextXml;
 var _Register = require('./_register')._Register;
 
 
