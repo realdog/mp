@@ -17,7 +17,6 @@ fs.readdirSync(models_path).forEach(function (file) {
   require(models_path+'/'+file)
 });
 
-var util = require('util');
 var app = express();
 require('./config/express')(app);
 require('./config/routes')(app);

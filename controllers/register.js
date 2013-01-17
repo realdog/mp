@@ -5,7 +5,8 @@ var Player = mongoose.model('Player');
 var Status = mongoose.model('Status');
 var _ = require('underscore');
 var crypto = require('crypto');
-var util = require('../util/util');
+var userUtil = require('../util/util');
+var util = require('util');
 var genTextXml = util.genTextXml;
 var _Register = require('./_register')._Register;
 
