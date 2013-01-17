@@ -10,8 +10,6 @@ var util = require('util');
 var genTextXml = util.genTextXml;
 var _Register = require('./_register')._Register;
 
-util.inherits(Register, _Register);
-exports.Register = Register;
 
 var Register = function(userWeiId, businessWeiId, callback, data) {
     this.userWeiId = userWeiId;
@@ -56,4 +54,7 @@ Register.prototype.check = function() {
     });
 
     this._check();
-}
+};
+
+util.inherits(Register, _Register);
+exports.Register = Register;
