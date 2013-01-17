@@ -44,12 +44,12 @@ Register.prototype.check = function() {
             this.error = true;
             this.status = 'missReisRecorder';
             this.errorMessage = genTextXml(this.userWeiId, this.businessWei, "服务器解析错误:" + err.toString(), 1);
-            this.callback(true, this.errorMessage);
+            this._callback();
         } else if (!!reply) {
             this.error = false;
             this.status = 'missRedisRecorder';
             this.message = JSON.parse(reply);
-            this.callback();
+            this._callback();
         } else { 
             console.log("no reg")
             //dispatch(req, res, data);
