@@ -45,7 +45,7 @@ Register.prototype.check = function() {
     client.get(this.businessHashKey, function(err, reply){
         if (!!err) {
             that.error = true;
-            that.status = 'missReisRecorder';
+            that.status = 'missRedisRecorder';
             that.errorMessage = genTextXml(that.userWeiId, that.businessWei, "服务器解析错误:" + err.toString(), 1);
             that._callback();
         } else {

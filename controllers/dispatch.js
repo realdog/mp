@@ -25,10 +25,16 @@ exports.dispatch = function(req, res, data) {
     console.log(JSON.stringify(data));
     var begin = function() {
         console.log(person);
-        if (person.status == 'justRegBaseRegInfo') {
-            var text = genTextXml(person.userWeiId, person.businessWeiId, "亲爱的，您是第一次来吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
-        } else if (person.status == 'timeout') {
-            var text = genTextXml(person.userWeiId, person.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
+        if (person.error == false) {
+            if (person.status == 'justRegBaseInfo') {
+                var text = genTextXml(person.userWeiId, person.businessWeiId, "亲爱的，您是第一次来吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
+            } else if (person.status == 'timeout') {
+                var text = genTextXml(person.userWeiId, person.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
+            } else if (person.status == 'hadRegBaseInfo') {
+                var text = genTextXml(person.userWeiId, person.businessWeiId, '<a href="http://www.lessky.com">亲，马上就给你注册啦!</a>', 0);                
+            }      
+        } else (person.error == true) {
+            var text = genTextXml(person.userWeiId, person.businessWeiId, "亲，似乎现在系统正在维护！稍后试验下吧", 1);
         }
         res.end(text);
     };    

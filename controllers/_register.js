@@ -42,12 +42,12 @@ _Register.prototype._check = function() {
             var newPlayer = new Player({});
             newPlayer.playerWeiId = that.userWeiId;
             newPlayer.busiunesWeiId = that.businessWeiId;
-            newPlayer.status = 'justRegBaseRegInfo';
+            newPlayer.status = 'justRegBaseInfo';
             newPlayer.save(function(err){
                 //var text = genTextXml(userWeiId, businessWeiId, "亲爱的，您是第一次来使用这个功能吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
                 that.error = false;
-                that.status = 'justRegBaseRegInfo';
-                //var returnStatus = {error: false, status: "justRegBaseRegInfo"};
+                that.status = 'justRegBaseInfo';
+                //var returnStatus = {error: false, status: "justRegBaseInfo"};
                 that._callback();
             });
         } else if (players.length == 1) {
@@ -58,7 +58,7 @@ _Register.prototype._check = function() {
                     that.status = 'fullRegister';
                     that._callback();
                     break;
-                case 'justRegBaseRegInfo':
+                case 'justRegBaseInfo':
                     var lastTime = new Date(players[0].createDate);
                     if (Date.now() - lastTime >= 10000) {
                         players[0].createDate = new Date();
@@ -67,18 +67,16 @@ _Register.prototype._check = function() {
                                 that.error = true;
                                 that.status = err;
                                 //var returnStatus = {error: true,  status: err}
-                                //var text = genTextXml(userWeiId, businessWeiId, "亲，似乎现在系统正在维护！稍后试验下吧", 1);
+                                //
                             } else {
                                 that.error = false;
                                 that.status = 'timeout'
-                                //var returnStatus = {error: false,  status: 'timeout'}
-                                //var text = genTextXml(userWeiId, businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
                             }
                             that._callback();
                         });
                         
                     } else {
-                        that.status = 'justRegBaseRegInfo'
+                        that.status = 'hadRegBaseInfo'
                         that.error = false;
                         that._callback();
                     }
@@ -147,7 +145,7 @@ _Register.prototype._register = function() {
                         this._callback();
                     });
                     break;            
-                case 'justRegBaseRegInfo':
+                case 'justRegBaseInfo':
                     var lastTime = new Date(players[0].createDate);
                     if (Date.now() - lastTime >= 10000) {
                         players[0].status = 'fullRegister';
@@ -220,7 +218,7 @@ _Register.prototype._register = function() {
         } else if (players.length == 1) {
             var status = players[0].status;
             switch (status) {
-                case 'justRegBaseRegInfo':
+                case 'justRegBaseInfo':
                     var lastTime = new Date(players[0].createDate);
                     if (Date.now() - lastTime >= 10000) {
                         players[0].createDate = new Date();
