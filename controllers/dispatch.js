@@ -24,7 +24,11 @@ exports.dispatch = function(req, res, data) {
     var person = undefined;
     console.log(JSON.stringify(data));
     var begin = function() {
-        console.log(person);    
+        console.log(person);
+        if (person.status == 'justRegBaseRegInfo') {
+            var text = genTextXml(userWeiId, businessWeiId, "亲爱的，您是第一次来吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
+            res.end(text);
+        }
     };    
     person = new Register(targetUser, fromUser, begin, data);
     person.check();
