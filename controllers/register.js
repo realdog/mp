@@ -20,6 +20,7 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
     this.content = data['xml']['Content'].toString().replace(/ /g, '');
     this.callback = callback;
     this.error = false;
+    this.message = '';
     var hash = crypto.createHash('md5');
     hash.update(this.businessWei + this.userWeiId);
     this.userHashKey = hash.digest('hex');
@@ -35,12 +36,33 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
 util.inherits(Register, _Register);
 
 Register.prototype._callback = function() {
-    console.log("register");
+    if (this.error == false) {
+        if (this.status == 'justRegBaseInfo') {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲爱的，您是第一次来吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
+        } else if (this.status == 'timeout') {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
+        } else if (this.status == 'hadRegBaseInfo') {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，马上就给你注册啦!</a>', 0);   
+            this.register();
+            return;
+        } else if (this.status == "fullRegister" && this.runningFunction = "register") {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "注册成功啦哈哈", 0);
+        } else if (this.status == "fullRegister" && this.runningFunction = "check") {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "您早就注册过啦", 0);
+        } else if (this.status == "lastStepRegError") {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲，你的名字好帅呀。不过，似乎现在系统正在维护哦!", 1);
+        } else if (this.status == "multiRecorder") {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
+        } else if (this.status == "unknow") {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "小编把机器给弄坏了。。。", 1);
+        }
+    } else if(this.error == true) {
+        this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲，似乎现在系统正在维护！稍后试验下吧", 1);
+    }
     this.callback();
 }
 
 Register.prototype.check = function() {
-    console.log("Register.prototype.check:" + this.businessHashKey);
     var that = this;
     client.get(this.businessHashKey, function(err, reply){
         if (!!err) {
@@ -64,5 +86,8 @@ Register.prototype.check = function() {
     
 };
 
+Register.prototype.register = function() {
+    this._register();
+};
 
 exports.Register = Register;
