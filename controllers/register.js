@@ -34,6 +34,7 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
 util.inherits(Register, _Register);
 
 Register.prototype._callback = function() {
+    console.log("register");
     this.callback();
 }
 
@@ -45,18 +46,22 @@ Register.prototype.check = function() {
             this.status = 'missReisRecorder';
             this.errorMessage = genTextXml(this.userWeiId, this.businessWei, "服务器解析错误:" + err.toString(), 1);
             this._callback();
-        } else if (!!reply) {
+        } else {
+            this._check();
+        }
+        if (!!reply) {
             this.error = false;
             this.status = 'missRedisRecorder';
             this.message = JSON.parse(reply);
             this._callback();
         } else { 
+            this._check();
             console.log("no reg")
             //dispatch(req, res, data);
         }
     });
 
-    this._check();
+    
 };
 
 

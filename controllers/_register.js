@@ -25,6 +25,7 @@ var _Register = function(userWeiId, businessWeiId, callback, data) {
 util.inherits(_Register, events.EventEmitter);
 
 _Register.prototype._callback = function() {
+    console.log("_register");
     this.callback();
 };
 
