@@ -27,8 +27,10 @@ exports.dispatch = function(req, res, data) {
         console.log(person);
         if (person.status == 'justRegBaseRegInfo') {
             var text = genTextXml(person.userWeiId, person.businessWeiId, "亲爱的，您是第一次来吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
-            res.end(text);
+        } else if (person.status == 'timeout') {
+            var text = genTextXml(person.userWeiId, person.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
         }
+        res.end(text);
     };    
     person = new Register(targetUser, fromUser, begin, data);
     person.check();
