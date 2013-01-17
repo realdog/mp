@@ -40,24 +40,23 @@ Register.prototype._callback = function() {
 
 Register.prototype.check = function() {
     console.log("Register.prototype.check:" + this.businessHashKey);
-    console.log(this.check);
-    console.log(this._check);
+    var that = this;
     client.get(this.businessHashKey, function(err, reply){
         if (!!err) {
-            this.error = true;
-            this.status = 'missReisRecorder';
-            this.errorMessage = genTextXml(this.userWeiId, this.businessWei, "服务器解析错误:" + err.toString(), 1);
-            this._callback();
+            that.error = true;
+            that.status = 'missReisRecorder';
+            that.errorMessage = genTextXml(that.userWeiId, that.businessWei, "服务器解析错误:" + err.toString(), 1);
+            that._callback();
         } else {
-            this._check();
+            that._check();
         }
         if (!!reply) {
-            this.error = false;
-            this.status = 'missRedisRecorder';
-            this.message = JSON.parse(reply);
-            this._callback();
+            that.error = false;
+            that.status = 'missRedisRecorder';
+            that.message = JSON.parse(reply);
+            that._callback();
         } else { 
-            this._check();
+            that._check();
             console.log("no reg")
             //dispatch(req, res, data);
         }

@@ -30,32 +30,33 @@ _Register.prototype._callback = function() {
 };
 
 _Register.prototype._check = function() {
+    var that = this;
     Player
     .find({playerWeiId: this.userWeiId, busiunesWeiId: this.businessWeiId})
     .exec(function(error, players) {
         if (!!error) {
-            this.error = true;
-            this.status = error;
-            this._callback();
+            that.error = true;
+            that.status = error;
+            that._callback();
         } else if (players.length == 0){
             var newPlayer = new Player({});
-            newPlayer.playerWeiId = this.userWeiId;
-            newPlayer.busiunesWeiId = this.businessWeiId;
+            newPlayer.playerWeiId = that.userWeiId;
+            newPlayer.busiunesWeiId = that.businessWeiId;
             newPlayer.status = 'recordBaseRegInfo';
             newPlayer.save(function(err){
                 //var text = genTextXml(userWeiId, businessWeiId, "亲爱的，您是第一次来使用这个功能吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
-                this.error = false;
-                this.status = 'justRegBaseRegInfo';
+                that.error = false;
+                that.status = 'justRegBaseRegInfo';
                 //var returnStatus = {error: false, status: "justRegBaseRegInfo"};
-                this._callback();
+                that._callback();
             });
         } else if (players.length == 1) {
             var status = players[0].status;
             switch (status) {
                 case 'fullRegister':
-                    this.error = false;
-                    this.status = 'fullRegister';
-                   this._callback();
+                    that.error = false;
+                    that.status = 'fullRegister';
+                    that._callback();
                     break;
                 case 'justRegBaseRegInfo':
                     var lastTime = new Date(players[0].createDate);
@@ -63,36 +64,36 @@ _Register.prototype._check = function() {
                         players[0].createDate = new Date();
                         players[0].save(function(err){
                             if (!!err) {
-                                this.error = true;
-                                this.status = err;
+                                that.error = true;
+                                that.status = err;
                                 //var returnStatus = {error: true,  status: err}
                                 //var text = genTextXml(userWeiId, businessWeiId, "亲，似乎现在系统正在维护！稍后试验下吧", 1);
                             } else {
-                                this.error = false;
-                                this.status = 'timeout'
+                                that.error = false;
+                                that.status = 'timeout'
                                 //var returnStatus = {error: false,  status: 'timeout'}
                                 //var text = genTextXml(userWeiId, businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
                             }
-                            this._callback();
+                            that._callback();
                         });
                         
                     } else {
-                        this.status = 'justRegBaseRegInfo'
-                        this.error = false;
-                        this._callback();
+                        that.status = 'justRegBaseRegInfo'
+                        that.error = false;
+                        that._callback();
                     }
                     break;
                 default:
-                    this.error = false;
-                    this.status = 'unknow';
-                    this._callback();
+                    that.error = false;
+                    that.status = 'unknow';
+                    that._callback();
                     
                     
             }
         } else {
-            this.error = false;
-            this.status = 'multiRecorder';
-            this._callback();
+            that.error = false;
+            that.status = 'multiRecorder';
+            that._callback();
             //var text = genTextXml(userWeiId, businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
             //callback({error: false,  msg: text});
         }
