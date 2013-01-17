@@ -26,7 +26,7 @@ exports.dispatch = function(req, res, data) {
     var begin = function() {
         console.log(person);
         if (person.status == 'justRegBaseRegInfo') {
-            var text = genTextXml(person.userWeiId, person.businessWeiId, "Ç×°®µÄ£¬ÄúÊÇµÚÒ»´ÎÀ´°É! ºÙºÙ£¬ÄÇÎÒÒªÔõÃ´³ÆºôÄúÄØ£¿¸æËßÎÒ²ÅºÃ¿ªÊ¼Å¶!", 0);
+            var text = genTextXml(person.userWeiId, person.businessWeiId, "äº²çˆ±çš„ï¼Œæ‚¨æ˜¯ç¬¬ä¸€æ¬¡æ¥å§! å˜¿å˜¿ï¼Œé‚£æˆ‘è¦æ€ä¹ˆç§°å‘¼æ‚¨å‘¢ï¼Ÿå‘Šè¯‰æˆ‘æ‰å¥½å¼€å§‹å“¦!", 0);
             res.end(text);
         }
     };    
