@@ -7,7 +7,7 @@ var Player = mongoose.model('Player');
 var Status = mongoose.model('Status');
 var util = require('../util/util');
 var games_path = __dirname + '/games';
-var reg = require('./reg').reg;
+var Register = require('./register').Register;
 var games_list = {};
 var genTextXml = util.genTextXml;
 
@@ -34,7 +34,7 @@ exports.dispatch = function(req, res, data) {
                 var begin = function(msgObj) {
                     res.send(msgObj.msg);
                 };
-                reg(req, res, targetUser, fromUser, false, begin, data);
+                Register(req, res, targetUser, fromUser, false, begin, data);
             } else if (player.length > 1) {
                 
             } else {
