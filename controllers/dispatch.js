@@ -9,7 +9,7 @@ var userUtil = require('../util/util');
 var games_path = __dirname + '/games';
 var Register = require('./register').Register;
 var games_list = {};
-var genTextXml = util.genTextXml;
+var genTextXml = userUtil.genTextXml;
 
 fs.readdirSync(games_path).forEach(function (file) {
    var tmpObj = require(games_path+'/'+file);
