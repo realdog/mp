@@ -21,6 +21,7 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
     this.callback = callback;
     this.error = false;
     this.message = '';
+    this.runningFunction = undefined;
     var hash = crypto.createHash('md5');
     hash.update(this.businessWei + this.userWeiId);
     this.userHashKey = hash.digest('hex');
@@ -45,9 +46,9 @@ Register.prototype._callback = function() {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，马上就给你注册啦!</a>', 0);   
             this.register();
             return;
-        } else if (this.status == "fullRegister" && this.runningFunction = "register") {
+        } else if (this.status == "fullRegister" && this.runningFunction == this.register) {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, "注册成功啦哈哈", 0);
-        } else if (this.status == "fullRegister" && this.runningFunction = "check") {
+        } else if (this.status == "fullRegister" && this.runningFunction == this.check) {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, "您早就注册过啦", 0);
         } else if (this.status == "lastStepRegError") {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲，你的名字好帅呀。不过，似乎现在系统正在维护哦!", 1);
@@ -63,6 +64,7 @@ Register.prototype._callback = function() {
 }
 
 Register.prototype.check = function() {
+    this.runningFunction = this.check;
     var that = this;
     client.get(this.businessHashKey, function(err, reply){
         if (!!err) {
@@ -87,6 +89,7 @@ Register.prototype.check = function() {
 };
 
 Register.prototype.register = function() {
+    this.runningFunction = this.register;
     this._register();
 };
 
