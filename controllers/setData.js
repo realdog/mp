@@ -1,18 +1,22 @@
 var fs = require('fs');
 var redis = require("redis");
 var client = redis.createClient();
-var mongoose = require('mongoose');
+var env = process.env.NODE_ENV || 'development'
+  , config = require('../config/config')[env]
+  , mongoose = require('mongoose');
+mongoose.connect(config.db);
+var models_path = __dirname + '/../models'
+fs.readdirSync(models_path).forEach(function (file) {
+  console.log(file);
+  require(models_path+'/'+file)
+});
+
 var Business = mongoose.model('Business');
 var Player = mongoose.model('Player');
 var Status = mongoose.model('Status');
 var _ = require('underscore');
 var crypto = require('crypto');
 var newPlayer = new Player({});
-var models_path = __dirname + '/../models'
-fs.readdirSync(models_path).forEach(function (file) {
-  console.log(file);
-  require(models_path+'/'+file)
-});
 
 newPlayer.playerWeiId = 'orNerjiR0K02BAtWpu9eOxVVqAeE';
 message.playerWeiId = 'orNerjiR0K02BAtWpu9eOxVVqAeE';
