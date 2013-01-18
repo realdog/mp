@@ -40,7 +40,10 @@ Register.prototype._callback = function() {
     if (this.error == false) {
         if (this.status == 'justRegBaseInfo') {
             client.set(this.uniqueHashKey, this.message, function(err){
-                console.log('set key:' + err);
+                if (!!err) {
+                    that.error = true;
+                    that.status = "getRedisRecorderMissing";
+                } 
                 that.callback();
             });
             return

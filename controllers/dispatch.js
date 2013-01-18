@@ -26,7 +26,16 @@ exports.dispatch = function(req, res, data) {
     var begin = function() {
         var message = '';
         if (person.status != 'fullRegister') {
-            message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.注册", 1);
+            if (!!person.error) {
+                switch (person.status) {
+                    case 'getRedisRecorderMissing'
+                        message = genTextXml(person.userWeiId, person.businessWeiId, person.staus, 0);
+                        break;
+                    default:
+                }
+            } else {
+                message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.注册", 1);
+            }
         } else {
             message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.私人管家", 0);
         }

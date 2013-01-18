@@ -107,6 +107,7 @@ _Register.prototype._register = function() {
             newPlayer.status = 'fullRegister';
             newPlayer.playName = that.content;
             newPlayer.uniqueHashKey = that.uniqueHashKey;
+            newPlayer.createDate = new Date();
             newPlayer.save(function(err){
                 that.error = false;
                 that.status = 'fullRegister';
@@ -153,6 +154,7 @@ _Register.prototype._register = function() {
                     } else {
                         players[0].status = 'fullRegister'
                         players[0].playName = that.content;
+                        players[0].createDate = new Date();
                         players[0].save(function(err){
                             if (!!err) {
                                 that.error = true;
