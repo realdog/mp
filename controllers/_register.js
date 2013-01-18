@@ -43,11 +43,16 @@ _Register.prototype._check = function() {
             newPlayer.playerWeiId = that.userWeiId;
             newPlayer.busiunesWeiId = that.businessWeiId;
             newPlayer.status = 'justRegBaseInfo';
-            newPlayer.uniqueHashKey = this.uniqueHashKey;
+            newPlayer.uniqueHashKey = that.uniqueHashKey;
             newPlayer.save(function(err){
-                that.error = false;
-                that.status = 'justRegBaseInfo';
-                that._callback();
+                if (err) {
+                    that.error = true;
+                    that.status = err;
+                } else {
+                    that.error = false;
+                    that.status = 'justRegBaseInfo';
+                    that._callback();
+                }
             });
         } else if (players.length == 1) {
             var status = players[0].status;
@@ -107,7 +112,7 @@ _Register.prototype._register = function() {
             newPlayer.playerWeiId = that.userWeiId;
             newPlayer.busiunesWeiId = that.businessWeiId;
             newPlayer.status = 'justRegBaseInfo';
-            newPlayer.uniqueHashKey = this.uniqueHashKey;
+            newPlayer.uniqueHashKey = that.uniqueHashKey;
             newPlayer.save(function(err){
                 that.error = false;
                 that.status = 'justRegBaseInfo';
