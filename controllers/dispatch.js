@@ -33,5 +33,5 @@ exports.dispatch = function(req, res, data) {
         res.end(message);
     };    
     person = new Register(targetUser, fromUser, begin, data);
-    person.register();
+    person.check();
 }
