@@ -24,7 +24,13 @@ exports.dispatch = function(req, res, data) {
     var person = undefined;
     console.log(JSON.stringify(data));
     var begin = function() {
-        res.end(person.message);
+        var message = '';
+        if (person.status != 'fullRegister') {
+            message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.注册", 1);
+        } else {
+            message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.私人管家", 0);
+        }
+        res.end(message);
     };    
     person = new Register(targetUser, fromUser, begin, data);
     person.check();

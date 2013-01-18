@@ -38,9 +38,13 @@ util.inherits(Register, _Register);
 Register.prototype._callback = function() {
     if (this.error == false) {
         if (this.status == 'justRegBaseInfo') {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲爱的，您是第一次来吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲爱的，欢迎你来注册哦! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
+            this.register();
+            return;
         } else if (this.status == 'timeout') {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
+        } else if (this.status == 'updateVisitTime') {
+             this.message = genTextXml(this.userWeiId, this.businessWeiId, 'O(∩_∩)O', 0);
         } else if (this.status == 'hadRegBaseInfo') {
             this.register();
             return;
@@ -67,7 +71,7 @@ Register.prototype.check = function() {
     client.get(this.uniqueHashKey, function(err, reply){
         if (!!err) {
             that.error = true;
-            that.status = 'missRedisRecorder';
+            that.status = 'visitRedisFail';
             that.errorMessage = genTextXml(that.userWeiId, that.businessWei, "服务器解析错误:" + err.toString(), 1);
             that._callback();
         } else {

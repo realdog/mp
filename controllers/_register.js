@@ -64,24 +64,17 @@ _Register.prototype._check = function() {
                     break;
                 case 'justRegBaseInfo':
                     var lastTime = new Date(players[0].createDate);
-                    if (Date.now() - lastTime >= 10000) {
-                        players[0].createDate = new Date();
-                        players[0].save(function(err){
-                            if (!!err) {
-                                that.error = true;
-                                that.status = err;
-                            } else {
-                                that.error = false;
-                                that.status = 'timeout'
-                            }
-                            that._callback();
-                        });
-                        
-                    } else {
-                        that.status = 'hadRegBaseInfo'
-                        that.error = false;
+                    players[0].createDate = new Date();
+                    players[0].save(function(err){
+                        if (!!err) {
+                            that.error = true;
+                            that.status = err;
+                        } else {
+                            that.error = false;
+                            that.status = 'updateVisitTime'
+                        }
                         that._callback();
-                    }
+                    });                    
                     break;
                 default:
                     that.error = false;
