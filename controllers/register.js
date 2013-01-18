@@ -39,8 +39,6 @@ Register.prototype._callback = function() {
     if (this.error == false) {
         if (this.status == 'justRegBaseInfo') {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲爱的，欢迎你来注册哦! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
-            this.register();
-            return;
         } else if (this.status == 'timeout') {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
         } else if (this.status == 'updateVisitTime') {
