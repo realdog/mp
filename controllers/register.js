@@ -22,12 +22,11 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
     this.error = false;
     this.message = '';
     this.runningFunction = undefined;
+
     var hash = crypto.createHash('md5');
     hash.update(this.businessWei + this.userWeiId);
-    this.userHashKey = hash.digest('hex');
-    hash = crypto.createHash('md5');
-    hash.update(this.businessWei + this.userWeiId);
-    this.businessHashKey = hash.digest('hex');
+    this.uniqueHashKey = hash.digest('hex');
+    
     if ((this.content.length >>> 0) <= 0 ) {
         this.error = true;
         this.status = 'nullContent';
@@ -65,7 +64,7 @@ Register.prototype._callback = function() {
 Register.prototype.check = function() {
     this.runningFunction = this.check;
     var that = this;
-    client.get(this.businessHashKey, function(err, reply){
+    client.get(this.uniqueHashKey, function(err, reply){
         if (!!err) {
             that.error = true;
             that.status = 'missRedisRecorder';

@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
   , Schema = mongoose.Schema;
 var PlayerSchema = new Schema({
     status: String
+  , uniqueHashKey: String
   , playName: String
   , playerWeiId: String
   , busiunesWeiId: String

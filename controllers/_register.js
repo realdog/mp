@@ -43,6 +43,7 @@ _Register.prototype._check = function() {
             newPlayer.playerWeiId = that.userWeiId;
             newPlayer.busiunesWeiId = that.businessWeiId;
             newPlayer.status = 'justRegBaseInfo';
+            newPlayer.uniqueHashKey = this.uniqueHashKey;
             newPlayer.save(function(err){
                 that.error = false;
                 that.status = 'justRegBaseInfo';
@@ -106,6 +107,7 @@ _Register.prototype._register = function() {
             newPlayer.playerWeiId = that.userWeiId;
             newPlayer.busiunesWeiId = that.businessWeiId;
             newPlayer.status = 'justRegBaseInfo';
+            newPlayer.uniqueHashKey = this.uniqueHashKey;
             newPlayer.save(function(err){
                 that.error = false;
                 that.status = 'justRegBaseInfo';

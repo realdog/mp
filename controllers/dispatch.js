@@ -25,7 +25,6 @@ exports.dispatch = function(req, res, data) {
     console.log(JSON.stringify(data));
     var begin = function() {
         res.end(person.message);
-
     };    
     person = new Register(targetUser, fromUser, begin, data);
     person.check();
