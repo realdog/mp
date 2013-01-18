@@ -104,11 +104,12 @@ _Register.prototype._register = function() {
             var newPlayer = new Player({});
             newPlayer.playerWeiId = that.userWeiId;
             newPlayer.busiunesWeiId = that.businessWeiId;
-            newPlayer.status = 'justRegBaseInfo';
+            newPlayer.status = 'fullRegister';
+            newPlayer.playName = that.content;
             newPlayer.uniqueHashKey = that.uniqueHashKey;
             newPlayer.save(function(err){
                 that.error = false;
-                that.status = 'justRegBaseInfo';
+                that.status = 'fullRegister';
                 that._callback();
             });
         } else if (players.length == 1) {
@@ -120,6 +121,21 @@ _Register.prototype._register = function() {
                     that._callback();
                     break;
                 case 'justRegBaseInfo':
+                case 'hadRegBaseInfo':
+                    players[0].createDate = new Date();
+                    players[0].status = 'fullRegister'
+                    players[0].playName = that.content;
+                    players[0].save(function(err){
+                        if (!!err) {
+                            that.error = true;
+                            that.status = 'lastStepRegError';
+                        } else {
+                            that.error = false;
+                            that.status = 'fullRegister';
+                        }
+                        that._callback();
+                    });              
+                    return;
                     var lastTime = new Date(players[0].createDate);
                     if (Date.now() - lastTime >= 10000) {
                         players[0].createDate = new Date();
