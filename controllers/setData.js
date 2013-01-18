@@ -17,7 +17,7 @@ var Status = mongoose.model('Status');
 var _ = require('underscore');
 var crypto = require('crypto');
 var newPlayer = new Player({});
-
+var message = {};
 newPlayer.playerWeiId = 'orNerjiR0K02BAtWpu9eOxVVqAeE';
 message.playerWeiId = 'orNerjiR0K02BAtWpu9eOxVVqAeE';
 newPlayer.busiunesWeiId = 'gh_b604880bf027';
