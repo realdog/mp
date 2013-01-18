@@ -26,9 +26,9 @@ exports.dispatch = function(req, res, data) {
     var begin = function() {
         var message = '';
         if (person.status != 'fullRegister') {
-            message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.注册", 1);
+            message = genTextXml(person.userWeiId, person.businessWeiId, "1.閮ㄨ惤鏈夊暐\r\n2.閮ㄨ惤鏈夊暐浼樻儬\r\n3.鏈�杩戞椿鍔╘r\n4.娉ㄥ唽", 1);
         } else {
-            message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.私人管家", 0);
+            message = genTextXml(person.userWeiId, person.businessWeiId, "1.閮ㄨ惤鏈夊暐\r\n2.閮ㄨ惤鏈夊暐浼樻儬\r\n3.鏈�杩戞椿鍔╘r\n4.绉佷汉绠″", 0);
         }
         res.end(message);
     };    
