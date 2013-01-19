@@ -26,8 +26,8 @@ newPlayer.status = 'fullRegister';
 message.status = 'fullRegister';
 newPlayer.playName = '老狗'
 message.playName = '老狗'
-newPlayer.uniqueHashKey = '90252a856f02f73dd257bd107fc92c32';
-message.uniqueHashKey = '90252a856f02f73dd257bd107fc92c32';
+newPlayer.uniqueHashKey = '4e98db17f2e0ba73989dfb39bff2d1f4';
+message.uniqueHashKey = '4e98db17f2e0ba73989dfb39bff2d1f4';
 newPlayer.createDate = new Date();
 message.createDate = new Date();
 newPlayer.save(function(err){
