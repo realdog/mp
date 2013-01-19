@@ -71,16 +71,8 @@ _Register.prototype._check = function() {
                     tempPlayer.insert = true;
                     that.error = false;
                     that.status = 'justRegBaseInfo';
-                    console.log("_check set")
-                    client.set(tempPlayer.userWeiIdHashKey, JSON.stringify(tempPlayer), function(err, reply){
-                        if (!!err) {
-                        
-                        } else {
-                            console.log(reply);
-                            that._callback();
-                        }
-                    });                    
-
+                    that.message = JSON.stringify(tempPlayer);
+                    that._callback();
                 }
             });
         } else if (players.length == 1) {
@@ -161,14 +153,8 @@ _Register.prototype._register = function() {
                     that.error = false;
                     that.status = 'fullRegister';
                 }
-                console.log("_reg set")
-                client.set(tempPlayer.uniqueHashKey, JSON.stringify(tempPlayer), function(err){
-                    if (!!err) {
-                        // save to file
-                    } else {
-                    }
-                    that._callback();
-                });                   
+                that.message = JSON.stringify(tempPlayer);
+                that._callback();                
             });
         } else if (players.length == 1) {
             var status = players[0].status;
@@ -192,17 +178,21 @@ _Register.prototype._register = function() {
                             that.error = false;
                             that.status = 'fullRegister';
                         }
+                        console.log(players[0])
+                        that.message = '';
                         that._callback();
                     });              
                     return;
                 default:
                     that.error = false;
                     that.status = 'unknow';
+                    that.message = '';
                     that._callback();
             }
         } else {
             that.error = false;
             that.status = 'multiRecorder';
+            that.message = '';
             that._callback();
             //var text = genTextXml(userWeiId, businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
             //callback({error: false,  msg: text});
