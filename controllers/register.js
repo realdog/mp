@@ -100,7 +100,7 @@ Register.prototype.check = function() {
                 that.error = false;
                 that.status = JSON.parse(reply)["status"];
                 that.message = JSON.parse(reply);
-                console.log( "check redis:" + that.message);
+                console.log( "check redis:" + reply);
                 that._callback();
             } else { 
                 that._check();
