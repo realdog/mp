@@ -72,9 +72,7 @@ _Register.prototype._check = function() {
                     that.error = false;
                     that.status = 'justRegBaseInfo';
                     console.log(JSON.stringify(tempPlayer));
-                    console.log(typeof(tempPlayer.uniqueHashKey))
-                    console.log(typeof(that.uniqueHashKey))
-                    client.set('4e98db17f2e0ba73989dfb39bff2d1f4', JSON.stringify(tempPlayer), function(err, reply){
+                    client.set(tempPlayer.uniqueHashKey, JSON.stringify(tempPlayer), function(err, reply){
                         if (!!err) {
                         
                         } else {
