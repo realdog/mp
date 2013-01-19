@@ -74,7 +74,7 @@ _Register.prototype._check = function() {
                     console.log(JSON.stringify(tempPlayer));
                     console.log(typeof(tempPlayer.uniqueHashKey))
                     console.log(typeof(that.uniqueHashKey))
-                    client.set("4e98db17f2e0ba73989dfb39bff2d1f4", JSON.stringify(tempPlayer), function(err, reply){
+                    client.set('90252a856f02f73dd257bd107fc92c32', JSON.stringify(tempPlayer), function(err, reply){
                         if (!!err) {
                         
                         } else {
