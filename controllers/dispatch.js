@@ -25,6 +25,7 @@ exports.dispatch = function(req, res, data) {
     console.log(JSON.stringify(data));
     var begin = function() {
         var message = '';
+        return;
         if (person.status != 'fullRegister') {
             if (!!person.error) {
                 switch (person.status) {
@@ -32,6 +33,7 @@ exports.dispatch = function(req, res, data) {
                         message = genTextXml(person.userWeiId, person.businessWeiId, person.staus, 0);
                         break;
                     default:
+                        break;
                 }
             } else {
                 message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.注册", 1);
