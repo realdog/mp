@@ -12,7 +12,7 @@ var util = require('util');
 var genTextXml = userUtil.genTextXml;
 
 var _Register = function(userWeiId, businessWeiId, callback, data) {
-    this.userWeiId = userWeiId;
+    this.playerWeiId = userWeiId;
     this.businessWeiId = businessWeiId;
     this.content = data['xml']['Content'].replace(/ /g, '');
     this.callback = callback;
@@ -33,7 +33,7 @@ _Register.prototype._callback = function() {
 _Register.prototype._check = function() {
     var that = this;
     Player
-    .find({playerWeiId: this.userWeiId, busiunesWeiId: this.businessWeiId})
+    .find({playerWeiId: this.userWeiId, businessWeiId: this.businessWeiId})
     .exec(function(error, players) {
         if (!!error) {
             that.error = true;
@@ -45,8 +45,8 @@ _Register.prototype._check = function() {
             newPlayer.playerWeiId = that.userWeiId;
             tempPlayer.playerWeiId = that.userWeiId;
             
-            newPlayer.busiunesWeiId = that.businessWeiId;
-            tempPlayer.busiunesWeiId = that.businessWeiId;
+            newPlayer.businessWeiId = that.businessWeiId;
+            tempPlayer.businessWeiId = that.businessWeiId;
             
             newPlayer.status = 'justRegBaseInfo';
             tempPlayer.status = 'justRegBaseInfo';
@@ -115,7 +115,7 @@ _Register.prototype._check = function() {
 _Register.prototype._register = function() {
     var that = this;
     Player
-    .find({playerWeiId: this.userWeiId, busiunesWeiId: this.businessWeiId})
+    .find({playerWeiId: this.userWeiId, businessWeiId: this.businessWeiId})
     .exec(function(error, players) {
         if (!!error) {
             that.error = true;
@@ -127,8 +127,8 @@ _Register.prototype._register = function() {
             newPlayer.playerWeiId = that.userWeiId;
             tempPlayer.playerWeiId = that.userWeiId;
             
-            newPlayer.busiunesWeiId = that.businessWeiId;
-            tempPlayer.busiunesWeiId = that.businessWeiId;
+            newPlayer.businessWeiId = that.businessWeiId;
+            tempPlayer.businessWeiId = that.businessWeiId;
             
             newPlayer.status = 'fullRegister';
             tempPlayer.status = 'fullRegister';
@@ -139,8 +139,8 @@ _Register.prototype._register = function() {
             newPlayer.uniqueHashKey = that.uniqueHashKey;
             tempPlayer.uniqueHashKey = that.uniqueHashKey;
             
-            newPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
-            tempPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
+            newPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
+            tempPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
             
             newPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;            
             tempPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;            
@@ -187,12 +187,12 @@ _Register.prototype._register = function() {
                             that.status = 'fullRegister';
                             tempPlayer.insert = true;
                         }
-                        tempPlayer.playerWeiId = players[0].userWeiId;
-                        tempPlayer.busiunesWeiId = players[0].businessWeiId;
+                        tempPlayer.playerWeiId = players[0].playerWeiId;
+                        tempPlayer.businessWeiId = players[0].businessWeiId;
                         tempPlayer.status = players[0].status;
                         tempPlayer.playName = players[0].content;
                         tempPlayer.uniqueHashKey = players[0].uniqueHashKey;
-                        tempPlayer.userWeiIdHashKey = players[0].userWeiIdHashKey;
+                        tempPlayer.playerWeiIdHashId = players[0].playerWeiIdHashId;
                         tempPlayer.businessWeiIdHashKey = players[0].businessWeiIdHashKey; 
                         
                         that.message = JSON.stringify(tempPlayer);
@@ -217,73 +217,6 @@ _Register.prototype._register = function() {
         
     
     });
-
-/*
-    
-    Player
-    .find({playerWeiId: userWeiId, busiunesWeiId: businessWeiId})
-    .exec(function(error, players) {
-        if (!!error) {
-            callback({error: true,  msg: '服务升级中'});
-        } else if (players.length == 0){
-            var newPlayer = new Player({});
-            newPlayer.playerWeiId = userWeiId;
-            newPlayer.busiunesWeiId = businessWeiId;
-            newPlayer.status = 'reg';
-            if (!!gameId) {
-                newPlayer.gameId = gameId;
-            }
-            newPlayer.save(function(err){
-                var text = genTextXml(userWeiId, businessWeiId, "亲爱的，您是第一次来吧! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
-                callback({error: false,  msg: text});
-            });
-        } else if (players.length == 1) {
-            var status = players[0].status;
-            switch (status) {
-                case 'justRegBaseInfo':
-                    var lastTime = new Date(players[0].createDate);
-                    if (Date.now() - lastTime >= 10000) {
-                        players[0].createDate = new Date();
-                        players[0].save(function(err){
-                            if (!!err) {
-                                var text = genTextXml(userWeiId, businessWeiId, "亲，似乎现在系统正在维护！稍后试验下吧", 1);
-                            } else {
-                                var text = genTextXml(userWeiId, businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
-                            }
-                            callback({error: false,  msg: text});
-                        });
-                        
-                    } else {
-                        players[0].status = 'regOk'
-                        var userName = data['xml']['Content'].replace(/ /g, '');
-                        if ((userName.length >>> 0) <= 0 ) {
-                            var text = genTextXml(userWeiId, businessWeiId, "亲你不能叫空格哦!", 0);
-                            res.send(text);
-                        } else {
-                            players[0].playName = userName;
-                            players[0].save(function(err){
-                                if (!!err) {
-                                    var text = genTextXml(userWeiId, businessWeiId, "亲，你的名字好帅呀。不过，似乎现在系统正在维护哦!", 1);
-                                    callback({error: true,  msg: text});
-                                } else {
-                                    var text = genTextXml(userWeiId, businessWeiId, "亲，你的名字好帅呀。", 0);
-                                    callback({error: false,  msg: text});
-                                }
-                                
-                            });
-                        }                   
-                    }
-                    break;
-                default:
-                    
-                    
-            }
-        } else {
-            var text = genTextXml(userWeiId, businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
-            callback({error: false,  msg: text});
-        }
-    });
-*/
 };
 
 exports._Register = _Register;
