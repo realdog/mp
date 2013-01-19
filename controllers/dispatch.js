@@ -28,7 +28,7 @@ exports.dispatch = function(req, res, data) {
         if (person.status != 'fullRegister') {
             if (!!person.error) {
                 switch (person.status) {
-                    case 'getRedisRecorderMissing'
+                    case 'getRedisRecorderMissing':
                         message = genTextXml(person.userWeiId, person.businessWeiId, person.staus, 0);
                         break;
                     default:
