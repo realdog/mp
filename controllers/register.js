@@ -47,6 +47,7 @@ Register.prototype._callback = function() {
     var that = this
     if (this.error == false) {
         if (this.message != '') {
+            console.log(this.message)
             client.set(this.uniqueHashKey, this.message, function(err){
                 if (!!err) {
                     that.error = true;
