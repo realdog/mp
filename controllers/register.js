@@ -24,7 +24,15 @@ var Register = function(userWeiId, businessWeiId, callback, data) {
     this.runningFunction = undefined;
 
     var hash = crypto.createHash('md5');
-    hash.update(this.businessWei + this.userWeiId);
+    hash.update(this.userWeiId);
+    this.userWeiIdHashKey = hash.digest('hex');
+
+    hash = crypto.createHash('md5');
+    hash.update(this.businessWeiId);
+    this.businessWeiIdHashKey = hash.digest('hex');
+    
+    hash = crypto.createHash('md5');
+    hash.update(this.businessWeiId + this.userWeiId);
     this.uniqueHashKey = hash.digest('hex');
     
     if ((this.content.length >>> 0) <= 0 ) {
@@ -65,6 +73,8 @@ Register.prototype._callback = function() {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
         } else if (this.status == "unknow") {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, "小编把机器给弄坏了。。。", 1);
+        } else {
+            this.message = genTextXml(this.userWeiId, this.businessWeiId, "小编把服务器给弄坏了。。。", 1);
         }
     } else if(this.error == true) {
         this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲，似乎现在系统正在维护！稍后试验下吧", 1);
@@ -84,7 +94,7 @@ Register.prototype.check = function() {
         } else {
             if (!!reply) {
                 that.error = false;
-                that.status = 'missRedisRecorder';
+                that.status = JSON.parse(reply)["status"];
                 that.message = JSON.parse(reply);
                 that._callback();
             } else { 

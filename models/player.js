@@ -5,7 +5,9 @@ var PlayerSchema = new Schema({
   , uniqueHashKey: String
   , playName: String
   , playerWeiId: String
+  , playerHashId: String
   , busiunesWeiId: String
+  , busiunesHashId: String
   , businessId: {type : Schema.ObjectId, ref : 'Business'}
   , userId: {type : Schema.ObjectId, ref : 'User'}
   , gameId: {type : Schema.ObjectId, ref : 'Game'}

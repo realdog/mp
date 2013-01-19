@@ -1,5 +1,6 @@
 var events = new require("events");
 var redis = require("redis");
+var client = redis.createClient();
 var fs = require('fs');
 var mongoose = require('mongoose');
 var _ = require('underscore');
@@ -40,18 +41,44 @@ _Register.prototype._check = function() {
             that._callback();
         } else if (players.length == 0){
             var newPlayer = new Player({});
+            var tempPlayer = {};
             newPlayer.playerWeiId = that.userWeiId;
+            tempPlayer.playerWeiId = that.userWeiId;
+            
             newPlayer.busiunesWeiId = that.businessWeiId;
+            tempPlayer.busiunesWeiId = that.businessWeiId;
+            
             newPlayer.status = 'justRegBaseInfo';
+            tempPlayer.status = 'justRegBaseInfo';
+            
             newPlayer.uniqueHashKey = that.uniqueHashKey;
+            tempPlayer.uniqueHashKey = that.uniqueHashKey;
+            
+            newPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
+            tempPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
+            
+            newPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;
+            tempPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;
+            
+            tempPlayer.insert = false;
+            
             newPlayer.save(function(err){
-                if (err) {
+                if (!!err) {
                     that.error = true;
                     that.status = err;
+                    // save to file
                 } else {
+                    tempPlayer.insert = true;
                     that.error = false;
                     that.status = 'justRegBaseInfo';
-                    that._callback();
+                    client.set(tempPlayer.uniqueHashKey, JSON.stringify(tempPlayer), function(err){
+                        if (!!err) {
+                        
+                        } else {
+                            that._callback();
+                        }
+                    });                    
+
                 }
             });
         } else if (players.length == 1) {
@@ -102,16 +129,43 @@ _Register.prototype._register = function() {
             that._callback();
         } else if (players.length == 0){
             var newPlayer = new Player({});
+            var tempPlayer = {};
             newPlayer.playerWeiId = that.userWeiId;
+            tempPlayer.playerWeiId = that.userWeiId;
+            
             newPlayer.busiunesWeiId = that.businessWeiId;
+            tempPlayer.busiunesWeiId = that.businessWeiId;
+            
             newPlayer.status = 'fullRegister';
+            tempPlayer.status = 'fullRegister';
+            
             newPlayer.playName = that.content;
+            tempPlayer.playName = that.content;
+            
             newPlayer.uniqueHashKey = that.uniqueHashKey;
-            newPlayer.createDate = new Date();
+            tempPlayer.uniqueHashKey = that.uniqueHashKey;
+            
+            newPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
+            tempPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
+            
+            newPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;            
+            tempPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;            
+            
             newPlayer.save(function(err){
-                that.error = false;
-                that.status = 'fullRegister';
-                that._callback();
+                if (!!err) {
+                    that.error = true;
+                    that.status = 'fullRegister';
+                } else {
+                    that.error = false;
+                    that.status = 'fullRegister';
+                }
+                client.set(tempPlayer.uniqueHashKey, JSON.stringify(tempPlayer), function(err){
+                    if (!!err) {
+                        // save to file
+                    } else {
+                    }
+                    that._callback();
+                });                   
             });
         } else if (players.length == 1) {
             var status = players[0].status;
@@ -123,6 +177,7 @@ _Register.prototype._register = function() {
                     break;
                 case 'justRegBaseInfo':
                 case 'hadRegBaseInfo':
+                    console.log(players[0]);
                     players[0].createDate = new Date();
                     players[0].status = 'fullRegister'
                     players[0].playName = that.content;
@@ -137,42 +192,10 @@ _Register.prototype._register = function() {
                         that._callback();
                     });              
                     return;
-                    var lastTime = new Date(players[0].createDate);
-                    if (Date.now() - lastTime >= 10000) {
-                        players[0].createDate = new Date();
-                        players[0].save(function(err){
-                            if (!!err) {
-                                that.error = true;
-                                that.status = err;
-                            } else {
-                                that.error = false;
-                                that.status = 'timeout'
-                            }
-                            that._callback();
-                        });
-                        
-                    } else {
-                        players[0].status = 'fullRegister'
-                        players[0].playName = that.content;
-                        players[0].createDate = new Date();
-                        players[0].save(function(err){
-                            if (!!err) {
-                                that.error = true;
-                                that.status = 'lastStepRegError';
-                            } else {
-                                that.error = false;
-                                that.status = 'fullRegister';
-                            }
-                            that._callback();
-                        });                    
-                    }
-                    break;
                 default:
                     that.error = false;
                     that.status = 'unknow';
                     that._callback();
-                    
-                    
             }
         } else {
             that.error = false;
