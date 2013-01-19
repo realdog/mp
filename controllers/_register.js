@@ -133,8 +133,8 @@ _Register.prototype._register = function() {
             newPlayer.status = 'fullRegister';
             tempPlayer.status = 'fullRegister';
             
-            newPlayer.playName = that.content;
-            tempPlayer.playName = that.content;
+            newPlayer.playerName = that.content;
+            tempPlayer.playerName = that.content;
             
             newPlayer.uniqueHashKey = that.uniqueHashKey;
             tempPlayer.uniqueHashKey = that.uniqueHashKey;
@@ -171,10 +171,9 @@ _Register.prototype._register = function() {
                     break;
                 case 'justRegBaseInfo':
                 case 'hadRegBaseInfo':
-                    
                     players[0].createDate = new Date();
                     players[0].status = 'fullRegister'
-                    players[0].playName = that.content;
+                    players[0].playerName = that.content;
                     players[0].save(function(err){
                         console.log("reg save1:" + players[0]);
                         var tempPlayer = {};
@@ -190,12 +189,11 @@ _Register.prototype._register = function() {
                         tempPlayer.playerWeiId = players[0].playerWeiId;
                         tempPlayer.businessWeiId = players[0].businessWeiId;
                         tempPlayer.status = players[0].status;
-                        tempPlayer.playName = players[0].content;
+                        tempPlayer.playerName = players[0].playerName;
                         tempPlayer.uniqueHashKey = players[0].uniqueHashKey;
                         tempPlayer.playerWeiIdHashId = players[0].playerWeiIdHashId;
                         tempPlayer.businessWeiIdHashKey = players[0].businessWeiIdHashKey; 
-                        
-                        that.message = JSON.stringify(tempPlayer);
+                        console.log(that.message);
                         that._callback();
                     });              
                     return;

@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var PlayerSchema = new Schema({
     status: String
   , uniqueHashKey: String
-  , playName: String
+  , playerName: String
   , playerWeiId: String
   , playerWeiIdHashId: String
   , businessWeiId: String
