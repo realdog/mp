@@ -97,7 +97,7 @@ Register.prototype.check = function() {
             that._callback();
         } else {
             if (!!reply) {
-                console.log(reply);
+                console.log(reply.toString());
                 that.error = false;
                 that.status = JSON.parse(reply)["status"];
                 that.message = JSON.parse(reply);
