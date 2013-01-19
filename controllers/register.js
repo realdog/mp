@@ -46,34 +46,36 @@ util.inherits(Register, _Register);
 Register.prototype._callback = function() {
     var that = this
     if (this.error == false) {
-        if (this.status == 'justRegBaseInfo') {
-            console.log("Register.prototype._callback error")
+        if (this.message != '') {
             client.set(this.uniqueHashKey, this.message, function(err){
                 if (!!err) {
                     that.error = true;
                     that.status = "getRedisRecorderMissing";
-                } 
-                that.callback();
-            });
-            return
-            //this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲爱的，欢迎你来注册哦! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
-        } else if (this.status == 'timeout') {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
-        } else if (this.status == 'updateVisitTime') {
-             this.message = genTextXml(this.userWeiId, this.businessWeiId, 'O(∩_∩)O', 0);
-        } else if (this.status == 'hadRegBaseInfo') {
-            this.register();
-            return;
-        } else if (this.status == "fullRegister" && this.runningFunction == this.register) {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, "注册成功啦哈哈", 0);
-        } else if (this.status == "fullRegister" && this.runningFunction == this.check) {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, "您早就注册过啦", 0);
-        } else if (this.status == "lastStepRegError") {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲，你的名字好帅呀。不过，似乎现在系统正在维护哦!", 1);
-        } else if (this.status == "multiRecorder") {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
-        } else if (this.status == "unknow") {
-            this.message = genTextXml(this.userWeiId, this.businessWeiId, "小编把机器给弄坏了。。。", 1);
+                    // save to file
+                }
+                if (this.status == 'justRegBaseInfo') {
+                    that.callback();
+                    return
+                    //this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲爱的，欢迎你来注册哦! 嘿嘿，那我要怎么称呼您呢？告诉我才好开始哦!", 0);
+                } else if (this.status == 'timeout') {
+                    this.message = genTextXml(this.userWeiId, this.businessWeiId, '<a href="http://www.lessky.com">亲，刚才小编我睡着了，能否重新告诉我你的大名呀!</a>', 0);
+                } else if (this.status == 'updateVisitTime') {
+                     this.message = genTextXml(this.userWeiId, this.businessWeiId, 'O(∩_∩)O', 0);
+                } else if (this.status == 'hadRegBaseInfo') {
+                    this.register();
+                    return;
+                } else if (this.status == "fullRegister" && this.runningFunction == this.register) {
+                    this.message = genTextXml(this.userWeiId, this.businessWeiId, "注册成功啦哈哈", 0);
+                } else if (this.status == "fullRegister" && this.runningFunction == this.check) {
+                    this.message = genTextXml(this.userWeiId, this.businessWeiId, "您早就注册过啦", 0);
+                } else if (this.status == "lastStepRegError") {
+                    this.message = genTextXml(this.userWeiId, this.businessWeiId, "亲，你的名字好帅呀。不过，似乎现在系统正在维护哦!", 1);
+                } else if (this.status == "multiRecorder") {
+                    this.message = genTextXml(this.userWeiId, this.businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
+                } else if (this.status == "unknow") {
+                    this.message = genTextXml(this.userWeiId, this.businessWeiId, "小编把机器给弄坏了。。。", 1);
+                }                
+            });            
         } else {
             this.message = genTextXml(this.userWeiId, this.businessWeiId, "小编把服务器给弄坏了。。。", 1);
         }
