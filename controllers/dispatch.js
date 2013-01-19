@@ -25,8 +25,8 @@ exports.dispatch = function(req, res, data) {
     console.log(JSON.stringify(data));
     var begin = function() {
         var message = '';
-        return;
         if (person.status != 'fullRegister') {
+            console.log(person);
             if (!!person.error) {
                 switch (person.status) {
                     case 'getRedisRecorderMissing':
