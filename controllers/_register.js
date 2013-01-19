@@ -54,8 +54,8 @@ _Register.prototype._check = function() {
             newPlayer.uniqueHashKey = that.uniqueHashKey;
             tempPlayer.uniqueHashKey = that.uniqueHashKey;
             
-            newPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
-            tempPlayer.userWeiIdHashKey = that.userWeiIdHashKey;
+            newPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
+            tempPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
             
             newPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;
             tempPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;
