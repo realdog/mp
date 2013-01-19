@@ -47,6 +47,7 @@ Register.prototype._callback = function() {
     var that = this
     if (this.error == false) {
         if (this.status == 'justRegBaseInfo') {
+            console.log("Register.prototype._callback error")
             client.set(this.uniqueHashKey, this.message, function(err){
                 if (!!err) {
                     that.error = true;

@@ -71,7 +71,7 @@ _Register.prototype._check = function() {
                     tempPlayer.insert = true;
                     that.error = false;
                     that.status = 'justRegBaseInfo';
-                    console.log(JSON.stringify(tempPlayer));
+                    console.log("_check set")
                     client.set(tempPlayer.userWeiIdHashKey, JSON.stringify(tempPlayer), function(err, reply){
                         if (!!err) {
                         
@@ -161,6 +161,7 @@ _Register.prototype._register = function() {
                     that.error = false;
                     that.status = 'fullRegister';
                 }
+                console.log("_reg set")
                 client.set(tempPlayer.uniqueHashKey, JSON.stringify(tempPlayer), function(err){
                     if (!!err) {
                         // save to file
