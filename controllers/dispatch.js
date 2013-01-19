@@ -41,7 +41,7 @@ exports.dispatch = function(req, res, data) {
         } else {
             message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.私人管家", 0);
         }
-        res.end(message);
+        res.send(message);
     };    
     person = new Register(targetUser, fromUser, begin, data);
     person.check();
