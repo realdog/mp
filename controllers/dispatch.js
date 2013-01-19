@@ -30,19 +30,19 @@ exports.dispatch = function(req, res, data) {
             if (!!person.error) {
                 switch (person.status) {
                     case 'getRedisRecorderMissing':
-                        message = genTextXml(person.userWeiId, person.businessWeiId, person.staus, 0);
+                        message = genTextXml(person.playerWeiId, person.businessWeiId, person.staus, 0);
                         break;
                     default:
                         break;
                 }
             } else {
-                message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.注册", 1);
+                message = genTextXml(person.playerWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.注册", 1);
             }
         } else {
-            message = genTextXml(person.userWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.私人管家", 0);
+            message = genTextXml(person.playerWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.私人管家", 0);
         }
         res.send(message);
     };    
     person = new Register(targetUser, fromUser, begin, data);
-    person.register();
+    person.check();
 }

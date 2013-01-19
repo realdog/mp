@@ -11,8 +11,8 @@ var userUtil = require('../util/util');
 var util = require('util');
 var genTextXml = userUtil.genTextXml;
 
-var _Register = function(userWeiId, businessWeiId, callback, data) {
-    this.playerWeiId = userWeiId;
+var _Register = function(playerWeiId, businessWeiId, callback, data) {
+    this.playerWeiId = playerWeiId;
     this.businessWeiId = businessWeiId;
     this.content = data['xml']['Content'].replace(/ /g, '');
     this.callback = callback;
@@ -33,7 +33,7 @@ _Register.prototype._callback = function() {
 _Register.prototype._check = function() {
     var that = this;
     Player
-    .find({playerWeiId: this.userWeiId, businessWeiId: this.businessWeiId})
+    .find({playerWeiId: this.playerWeiId, businessWeiId: this.businessWeiId})
     .exec(function(error, players) {
         if (!!error) {
             that.error = true;
@@ -42,8 +42,8 @@ _Register.prototype._check = function() {
         } else if (players.length == 0){
             var newPlayer = new Player({});
             var tempPlayer = {};
-            newPlayer.playerWeiId = that.userWeiId;
-            tempPlayer.playerWeiId = that.userWeiId;
+            newPlayer.playerWeiId = that.playerWeiId;
+            tempPlayer.playerWeiId = that.playerWeiId;
             
             newPlayer.businessWeiId = that.businessWeiId;
             tempPlayer.businessWeiId = that.businessWeiId;
@@ -54,8 +54,8 @@ _Register.prototype._check = function() {
             newPlayer.uniqueHashKey = that.uniqueHashKey;
             tempPlayer.uniqueHashKey = that.uniqueHashKey;
             
-            newPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
-            tempPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
+            newPlayer.playerWeiIdHashId = that.playerWeiIdHashKey;
+            tempPlayer.playerWeiIdHashId = that.playerWeiIdHashKey;
             
             newPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;
             tempPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;
@@ -115,7 +115,7 @@ _Register.prototype._check = function() {
 _Register.prototype._register = function() {
     var that = this;
     Player
-    .find({playerWeiId: this.userWeiId, businessWeiId: this.businessWeiId})
+    .find({playerWeiId: this.playerWeiId, businessWeiId: this.businessWeiId})
     .exec(function(error, players) {
         if (!!error) {
             that.error = true;
@@ -124,8 +124,8 @@ _Register.prototype._register = function() {
         } else if (players.length == 0){
             var newPlayer = new Player({});
             var tempPlayer = {};
-            newPlayer.playerWeiId = that.userWeiId;
-            tempPlayer.playerWeiId = that.userWeiId;
+            newPlayer.playerWeiId = that.playerWeiId;
+            tempPlayer.playerWeiId = that.playerWeiId;
             
             newPlayer.businessWeiId = that.businessWeiId;
             tempPlayer.businessWeiId = that.businessWeiId;
@@ -139,8 +139,8 @@ _Register.prototype._register = function() {
             newPlayer.uniqueHashKey = that.uniqueHashKey;
             tempPlayer.uniqueHashKey = that.uniqueHashKey;
             
-            newPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
-            tempPlayer.playerWeiIdHashId = that.userWeiIdHashKey;
+            newPlayer.playerWeiIdHashId = that.playerWeiIdHashKey;
+            tempPlayer.playerWeiIdHashId = that.playerWeiIdHashKey;
             
             newPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;            
             tempPlayer.businessWeiIdHashKey = that.businessWeiIdHashKey;            
@@ -196,7 +196,6 @@ _Register.prototype._register = function() {
                         tempPlayer.businessWeiIdHashKey = players[0].businessWeiIdHashKey; 
                         
                         that.message = JSON.stringify(tempPlayer);
-                        console.log("register_" + that.message);
                         that._callback();
                     });              
                     return;
@@ -211,7 +210,7 @@ _Register.prototype._register = function() {
             that.status = 'multiRecorder';
             that.message = '';
             that._callback();
-            //var text = genTextXml(userWeiId, businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
+            //var text = genTextXml(playerWeiId, businessWeiId, "奇怪，难道我们之前认识。。。找xx反应下吧", 1);
             //callback({error: false,  msg: text});
         }
         
