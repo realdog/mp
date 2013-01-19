@@ -71,6 +71,7 @@ _Register.prototype._check = function() {
                     tempPlayer.insert = true;
                     that.error = false;
                     that.status = 'justRegBaseInfo';
+                    console.log(JSON.stringify(tempPlayer));
                     client.set(tempPlayer.uniqueHashKey, JSON.stringify(tempPlayer), function(err){
                         if (!!err) {
                         
