@@ -177,7 +177,7 @@ _Register.prototype._register = function() {
                     break;
                 case 'justRegBaseInfo':
                 case 'hadRegBaseInfo':
-                    console.log(players[0]);
+                    //console.log(players[0]);
                     players[0].createDate = new Date();
                     players[0].status = 'fullRegister'
                     players[0].playName = that.content;
