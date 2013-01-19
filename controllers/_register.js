@@ -192,7 +192,9 @@ _Register.prototype._register = function() {
                         tempPlayer.uniqueHashKey = players[0].uniqueHashKey;
                         tempPlayer.userWeiIdHashKey = players[0].userWeiIdHashKey;
                         tempPlayer.businessWeiIdHashKey = players[0].businessWeiIdHashKey; 
+                        
                         that.message = JSON.stringify(tempPlayer);
+                        console.log("register_" + that.message);
                         that._callback();
                     });              
                     return;
