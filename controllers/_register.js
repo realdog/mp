@@ -149,9 +149,13 @@ _Register.prototype._register = function() {
                 if (!!err) {
                     that.error = true;
                     that.status = 'fullRegister';
+                    that.insert = false;
+                    tempPlayer.insert = false;
                 } else {
                     that.error = false;
                     that.status = 'fullRegister';
+                    that.insert = true;
+                    tempPlayer.insert = true;
                 }
                 that.message = JSON.stringify(tempPlayer);
                 that._callback();                
@@ -171,15 +175,24 @@ _Register.prototype._register = function() {
                     players[0].status = 'fullRegister'
                     players[0].playName = that.content;
                     players[0].save(function(err){
+                        var tempPlayer = {};
                         if (!!err) {
                             that.error = true;
                             that.status = 'lastStepRegError';
+                            tempPlayer.insert = false;
                         } else {
                             that.error = false;
                             that.status = 'fullRegister';
+                            tempPlayer.insert = true;
                         }
-                        console.log(players[0])
-                        that.message = '';
+                        tempPlayer.playerWeiId = players[0].userWeiId;
+                        tempPlayer.busiunesWeiId = players[0].businessWeiId;
+                        tempPlayer.status = players[0].status;
+                        tempPlayer.playName = players[0].content;
+                        tempPlayer.uniqueHashKey = players[0].uniqueHashKey;
+                        tempPlayer.userWeiIdHashKey = players[0].userWeiIdHashKey;
+                        tempPlayer.businessWeiIdHashKey = players[0].businessWeiIdHashKey; 
+                        that.message = JSON.stringify(tempPlayer);
                         that._callback();
                     });              
                     return;
