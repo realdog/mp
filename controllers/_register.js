@@ -157,6 +157,7 @@ _Register.prototype._register = function() {
                     that.insert = true;
                     tempPlayer.insert = true;
                 }
+                console.log("new save");
                 that.message = JSON.stringify(tempPlayer);
                 that._callback();                
             });
@@ -170,11 +171,12 @@ _Register.prototype._register = function() {
                     break;
                 case 'justRegBaseInfo':
                 case 'hadRegBaseInfo':
-                    console.log(players[0]);
+                    
                     players[0].createDate = new Date();
                     players[0].status = 'fullRegister'
                     players[0].playName = that.content;
                     players[0].save(function(err){
+                        console.log("reg save1:" + players[0]);
                         var tempPlayer = {};
                         if (!!err) {
                             that.error = true;

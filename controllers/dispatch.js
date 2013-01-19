@@ -44,5 +44,5 @@ exports.dispatch = function(req, res, data) {
         res.send(message);
     };    
     person = new Register(targetUser, fromUser, begin, data);
-    person.check();
+    person.register();
 }
