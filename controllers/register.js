@@ -99,8 +99,8 @@ Register.prototype.check = function() {
             if (!!reply) {
                 console.log(reply.toString());
                 that.error = false;
-                that.status = JSON.parse(reply)["status"];
-                that.message = JSON.parse(reply);
+                that.status = JSON.parse(reply.toString())["status"];
+                that.message = reply.toString();
                 console.log( "check redis:" + reply);
                 that._callback();
             } else { 
