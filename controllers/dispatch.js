@@ -42,6 +42,8 @@ exports.dispatch = function(req, res, data) {
             message = genTextXml(person.playerWeiId, person.businessWeiId, "1.部落有啥\r\n2.部落有啥优惠\r\n3.最近活动\r\n4.私人管家", 0);
         }
         res.send(message);
+        res.send(message);
+        res.send(message);
     };    
     person = new Register(targetUser, fromUser, begin, data);
     person.check();
