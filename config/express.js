@@ -15,7 +15,7 @@ module.exports = function (app) {
     }))
 
     app.configure(function () {
-      app.set('port', process.env.PORT || 80);  
+      app.set('port', process.env.PORT || 80);
       app.set('address', '199.193.249.116');  
       app.set('views', __dirname + '/views');
       app.set('view engine', 'ejs');
@@ -25,7 +25,7 @@ module.exports = function (app) {
       app.use(express.methodOverride());
       app.use(function(req, res, next) {
         req.rawBody = '';
-        var data = ''
+        var data = '';
         req.setEncoding('utf8');
         req.on('data', function(chunk) { data += chunk });
         req.on('end', function(chunk) { req.rawBody = data; next();})
