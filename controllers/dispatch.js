@@ -44,7 +44,11 @@ exports.dispatch = function(req, res, data) {
         }
         res.send(message);
     };    
+    
+    var begin_guessNum = function(){
+        res.send(guessNum.message);
+    }
     //person = new Register(targetUser, fromUser, begin, data);
-    var guessNum = new GuessNum(targetUser, fromUser, begin, data);
+    var guessNum = new GuessNum(targetUser, fromUser, begin_guessNum, data);
     guessNum.check();
 }
