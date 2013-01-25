@@ -44,7 +44,7 @@ var Register = function(playerWeiId, businessWeiId, callback, data) {
 util.inherits(Register, _Register);
 
 Register.prototype._callback = function() {
-    var that = this
+    var that = this;
     if (this.error == false) {
         if (this.message != '') {
             console.log(this.message)
@@ -93,7 +93,7 @@ Register.prototype.check = function() {
         if (!!err) {
             that.error = true;
             that.status = 'visitRedisFail';
-            that.errorMessage = genTextXml(that.playerWeiId, that.businessWei, "服务器解析错误:" + err.toString(), 1);
+            that.errorMessage = genTextXml(that.playerWeiId, that.businessWeiID, "服务器解析错误:" + err.toString(), 1);
             that._callback();
         } else {
             if (!!reply) {
