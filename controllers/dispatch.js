@@ -8,6 +8,7 @@ var Status = mongoose.model('Status');
 var userUtil = require('../util/util');
 var games_path = __dirname + '/games';
 var Register = require('./register').Register;
+var GuessNum = require('./guessNum').GuessNum;
 var games_list = {};
 var genTextXml = userUtil.genTextXml;
 
