@@ -136,4 +136,4 @@ GuessNum.prototype.check = function() {
         }    
     });
 }
-
+exports.GuessNum = GuessNum;
