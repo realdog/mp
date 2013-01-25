@@ -71,6 +71,7 @@ GuessNum.prototype.check = function() {
     var that = this;
     that.us.get(function(err, reply) {
         if (!!err) {
+            console.log("errrrrrrrrrrrr");
             that.error = true;
             that.errorMessage = genTextXml(that.playerWeiId, that.businessWeiID, "服务器解析错误:" + err.toString(), 1);
             that._callback();

@@ -18,10 +18,10 @@ userStatus.prototype.get = function(callback) {
     client.HGET("status", that.uniqueHashKey, function(err, reply){
         if (!!err) {
             that.error = true;
-            callback(false, false);
+            callback(err, false);
         } else {
             that.status = JSON.parse(reply);
-            callback(true, that.status);
+            callback(err, that.status);
         }
     });
 
