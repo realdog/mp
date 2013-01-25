@@ -43,6 +43,7 @@ exports.dispatch = function(req, res, data) {
         }
         res.send(message);
     };    
-    person = new Register(targetUser, fromUser, begin, data);
-    person.check();
+    //person = new Register(targetUser, fromUser, begin, data);
+    var guessNum = new GuessNum(targetUser, fromUser, begin, data);
+    guessNum.check();
 }
