@@ -20,6 +20,7 @@ userStatus.prototype.get = function(callback) {
             that.error = true;
             callback(err, false);
         } else {
+            console.log(reply);
             that.status = JSON.parse(reply);
             callback(err, that.status);
         }
@@ -31,9 +32,11 @@ userStatus.prototype.set = function(uniqueHashKey, value, callback) {
     var that = this;
     client.HGET("status", uniqueHashKey, value, function(err){
         if (!!err) {
+            console.log("set error");
             that.error = true;
             callback(false);
         } else {
+            console.log("set ok");
             that.error = false;
             callback(true);
         }
