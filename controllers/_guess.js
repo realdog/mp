@@ -2,6 +2,7 @@ var fs = require('fs');
 var redis = require("redis");
 var client = redis.createClient();
 var _ = require('underscore');
+var userUtil = require('../util/util');
 var genTextXml = userUtil.genTextXml;
 
 var _Guess = function(playerWeiId, businessWeiId, callback, data) {
