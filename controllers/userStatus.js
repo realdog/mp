@@ -30,7 +30,7 @@ userStatus.prototype.get = function(callback) {
 
 userStatus.prototype.set = function(uniqueHashKey, value, callback) {
     var that = this;
-    client.HGET("status", uniqueHashKey, value, function(err){
+    client.HSET("status", uniqueHashKey, value, function(err){
         if (!!err) {
             console.log("set error");
             that.error = true;
