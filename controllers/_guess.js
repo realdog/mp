@@ -18,7 +18,7 @@ var _Guess = function(playerWeiId, businessWeiId, callback, data) {
     }
 };
 
-util.inherits(_Register, events.EventEmitter);
+util.inherits(_Guess, events.EventEmitter);
 
 _Guess.prototype._callback = function() {
     console.log("_Guess");
