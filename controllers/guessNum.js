@@ -92,7 +92,7 @@ GuessNum.prototype.check = function() {
                     that.userStatus.lastStatus = undefined;
                     that.userStatus.testOk = false;
                 }
-                
+                console.log(that);
                 if (that.userStatus.remainTimes <= that.userStatus.tryTimes) {
                     if (that.content.toString() == that.userStatus.randNum.toString()) {
                         that.userStatus.testOk = true;
