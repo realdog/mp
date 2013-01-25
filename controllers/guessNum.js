@@ -116,7 +116,7 @@ GuessNum.prototype.check = function() {
                             }
                         });                        
                     } else {
-                        that.us.set(that.uniqueHashKey, json.stringify(that.userStatus), function(err){
+                        that.us.set(that.uniqueHashKey, JSON.stringify(that.userStatus), function(err){
                             if (!!err) {
                                 that.error = true;
                                 that._callback(false, false);
@@ -132,7 +132,7 @@ GuessNum.prototype.check = function() {
                     }
 
                 } else {
-                    that.us.set(that.uniqueHashKey, json.stringify(that.userStatus), function(err){
+                    that.us.set(that.uniqueHashKey, JSON.stringify(that.userStatus), function(err){
                         if (!!err) {
                             that.error = true;
                             that._callback(false, false);
