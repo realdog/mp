@@ -1,4 +1,5 @@
 var fs = require('fs');
+var events = new require("events");
 var redis = require("redis");
 var client = redis.createClient();
 var mongoose = require('mongoose');
