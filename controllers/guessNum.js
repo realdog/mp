@@ -14,7 +14,7 @@ var US = require('./userStatus').UserStatus;
 var GuessNum = function(playerWeiId, businessWeiId, callback, data) {
     this.playerWeiId = playerWeiId;
     this.businessWeiId = businessWeiId;
-    this.content = data['xml']['Content'].replace(/ /g, '');
+    this.content = data['xml']['Content'].toString().replace(/ /g, '');
     this.callback = callback;
     this.error = false;
     
