@@ -1,6 +1,7 @@
 var fs = require('fs');
 var redis = require("redis");
 var client = redis.createClient();
+var events = new require("events");
 var _ = require('underscore');
 var userUtil = require('../util/util');
 var util = require('util');
