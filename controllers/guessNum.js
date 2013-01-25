@@ -45,6 +45,7 @@ util.inherits(GuessNum, _Guess);
 
 GuessNum.prototype._callback = function(error, testOk) {
     var that = this;
+    console.log(that);
     if (!!error) {
         this.message = genTextXml(this.playerWeiId, this.businessWeiId, "小编把服务器给搞瘫痪了", 1);
     } else {
