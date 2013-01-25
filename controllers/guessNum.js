@@ -84,7 +84,7 @@ GuessNum.prototype.check = function() {
             } finally {
                 if (that.userStatus == undefined) {
                     that.userStatus = {};
-                    that.userStatus.randNum = Math.random() * 100 + 1;
+                    that.userStatus.randNum = parseInt(Math.random() * 100 + 1);
                     that.userStatus.tryTimes = 3;
                     that.userStatus.step = 0;
                     that.userStatus.runningType = "Game";
@@ -132,7 +132,19 @@ GuessNum.prototype.check = function() {
                     }
 
                 } else {
-                    that._callback(false, true);
+                    that.us.set(that.uniqueHashKey, json.stringify(that.userStatus), function(err){
+                        if (!!err) {
+                            that.error = true;
+                            that._callback(false, false);
+                        } else {
+                            that.error = false;
+                            if (!!that.userStatus.testOk) {
+                                that._callback(false, true);
+                            } else {
+                                that._callback(false, false);
+                            }
+                        }
+                    });                    
                 }
             }
         }    
